@@ -162,8 +162,12 @@ input:focus {
 
 .top-nav-right {
   display: flex;
-  justify-content: space-between;
-  width: 40%;
+  justify-content: flex-end;
+  width: 30%;
+}
+
+.top-nav-right * {
+  margin-left: 10px;
 }
 
 .search-wrapper {

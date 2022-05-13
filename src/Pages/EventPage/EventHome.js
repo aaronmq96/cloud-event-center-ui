@@ -1,7 +1,10 @@
+import axios from 'axios'
 import moment from 'moment'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Container, Nav } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
+import TemplateModal from '../../components/TemplateModal'
+import { REACT_APP_BASE_API_URL } from '../../config'
 import ParticipantForum from './ParticipantForum'
 import SignupForum from './SignupForum'
 const EventHome = () => {
@@ -9,11 +12,10 @@ const EventHome = () => {
     const location = useLocation()
     const data = location.state.payload
     console.log("Event Data", data)
+
     const { eventId, title, address, startTime, admissionPolicy,
         deadline, description, endTime, eventStatus,
         fee, imageUrl, maxParticipants, minParticipants } = data
-
-    console.log("popopop", typeof eventId.toString())
 
     const [selectedForum, setSelectedForum] = useState(1)
     const handleSelect = (eventKey) => {
@@ -21,14 +23,24 @@ const EventHome = () => {
         setSelectedForum(eventKey);
     }
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true)
 
-    const registerForEvent = async (e) => {
 
-
+    const handleEventRegistration = async (e) => {
+        // const res= await axios.post(`${REACT_APP_BASE_API_URL}/`)
+        console.log("Registered!")
     }
+
+    useEffect(() => {
+        //check if user is already registered or user is organizer
+
+    }, [])
 
     return (
         <div className="event-banner">
+
             <Card  >
                 <Container>
                     <Card.Img src="https://www.livenationentertainment.com/wp-content/uploads/2021/07/Live_Nation_Entertainment_Return_to_LIVE.jpg" alt="Card image"
@@ -47,9 +59,12 @@ const EventHome = () => {
                         <h4><b>Fee: </b> $ {fee}</h4>
                     </div>
                     <div>
-                        <Button size='lg' variant="dark" onClick={registerForEvent}> Register</Button>
+                        <Button size='lg' variant="dark" onClick={handleOpen}>
+                            Register </Button>
                     </div>
-
+                    <TemplateModal handleEventRegistration={
+                        () => handleEventRegistration}
+                        fee={fee} show={show} handleClose={() => handleClose} />
                 </div>
             </Container>
 

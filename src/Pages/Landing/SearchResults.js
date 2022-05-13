@@ -12,11 +12,12 @@ const SearchResults = (props) => {
             <ListGroup style={{ marginLeft: '100px', marginRight: '100px' }}>
                 {
                     data?.map(event => {
-                        console.log(event)
+                        // console.log(event)
                         return (
 
                             <ListGroup.Item
                                 className="d-flex justify-content-between align-items-start search-result-wrapper"
+                                key={event.eventId}
                             >
 
                                 <div className="search-results-image-wrapper">

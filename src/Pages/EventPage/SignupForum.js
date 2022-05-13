@@ -33,7 +33,7 @@ const SignupForum = ({ eventId }) => {
                     {
                         messages?.map(message => {
                             return (
-                                <div className="message-wrapper">
+                                <div key={message.messageId} className="message-wrapper">
 
                                     <div>
                                         <Image rounded="true" src=" " alt="user" />

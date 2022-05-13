@@ -10,19 +10,19 @@ const LandingPage = () => {
 
     const [data, setData] = useState();
     const [userData, setUserData] = useState()
-    const [location, setLocation] = useState()
-    const [status, setStatus] = useState()
-    const [startTime, setStartTime] = useState()
-    const [endTime, setEndTime] = useState()
-    const [keyword, setKeyword] = useState()
-    const [organizer, setOrganizer] = useState()
+    const [location, setLocation] = useState("")
+    const [status, setStatus] = useState("Active")
+    const [startTime, setStartTime] = useState("")
+    const [endTime, setEndTime] = useState("")
+    const [keyword, setKeyword] = useState("")
+    const [organizer, setOrganizer] = useState("")
     const navigate = useNavigate()
 
 
 
 
     const handleLocationChange = (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         setLocation(e.target.value)
     }
 
@@ -53,9 +53,8 @@ const LandingPage = () => {
 
 
     const getSearchResults = async (e) => {
-        // e.preventDefault();
         let userLocation = location
-        if (!userLocation) {
+        if (userLocation == undefined) {
             const userDataObj = await getUserDetails()
             userLocation = userDataObj.address.city
         }
@@ -70,7 +69,7 @@ const LandingPage = () => {
         }
 
 
-        console.log("payload", payload)
+        // console.log("payload", payload)
         const res = await axios.get(`${REACT_APP_BASE_API_URL}/event/search`, { params: payload })
         setData(res.data)
     }
@@ -104,11 +103,7 @@ const LandingPage = () => {
     }
 
     useEffect(() => {
-        //call get user details - > to get user address
-
         getSearchResults()
-
-
     }, [])
 
     return (
