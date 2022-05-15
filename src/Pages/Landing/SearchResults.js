@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Container, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ENUM_MAPPING from "../../utils/enumMappings";
 
 const SearchResults = (props) => {
 	const { data } = props;
@@ -47,7 +48,8 @@ const SearchResults = (props) => {
 									{event?.userInfo?.screenName}
 								</div>
 								<div>
-									<b>Status:</b> {event?.eventStatus}
+									<b>Status:</b>{" "}
+									{ENUM_MAPPING[event.eventStatus]}
 								</div>
 								<div>
 									<b>Registrations: </b>

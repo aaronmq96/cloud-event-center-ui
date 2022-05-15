@@ -1,11 +1,25 @@
+import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Button, Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
+import {
+	Button,
+	Container,
+	Nav,
+	Navbar,
+	Offcanvas,
+	Modal,
+} from "react-bootstrap";
 import { getAuth, signOut } from "firebase/auth";
+import { REACT_APP_BASE_API_URL } from "../config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 const TopNav = () => {
-	const [CECTime, setCECTime] = useState();
+	const [virtualTime, setVirtualTime] = useState();
 	const [show, setShow] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -20,9 +34,29 @@ const TopNav = () => {
 		}
 	};
 
-	// useEffect(() => {
-	//     setCECTime(moment(new Date()).format("MM/DD/YYYY"))
-	// }, [])
+	const fetchVirtualTime = async () => {
+		const response = await axios.get(
+			`${REACT_APP_BASE_API_URL}/virtualTime/get`
+		);
+		setVirtualTime(
+			moment(response.data.localDateTime).format("MM/DD/YYYY, hh:mm A")
+		);
+	};
+
+	const updateVirtualClock = async (e) => {
+		const response = await axios.get(
+			`${REACT_APP_BASE_API_URL}/virtualTime/simulate/${virtualTime}`
+		);
+		console.log(response);
+		fetchVirtualTime();
+		setShowModal(false);
+	};
+
+	useEffect(() => {
+		fetchVirtualTime();
+	}, []);
+
+	console.log(virtualTime);
 	return (
 		<Navbar bg="dark" variant="dark">
 			<Container>
@@ -78,17 +112,64 @@ const TopNav = () => {
 								</Offcanvas.Body>
 							</Offcanvas>
 						</div>
-						<div style={{ paddingTop: "8px" }}>
-							<input
-								type="date"
-								onFocus={(e) => (e.target.type = "date")}
-								// onBlur={(e) => e.target.type = "text"}
-								value={CECTime}
-								onChange={(e) => setCECTime(e.target.value)}
-							/>
+						<Button variant="light">{virtualTime}</Button>
+						<div>
+							<Button
+								size="sm"
+								variant="primary"
+								onClick={() => setShowModal(true)}
+								className="px-auto py-auto"
+							>
+								<FontAwesomeIcon
+									className="mx-auto my-auto"
+									icon={faClock}
+								/>
+								{/* <i className="faTimer"></i> */}
+							</Button>
 						</div>
 					</div>
 				</div>
+				<Modal
+					show={showModal}
+					size="lg"
+					aria-labelledby="contained-modal-title-vcenter"
+					centered
+					onHide={() => setShowModal(false)}
+				>
+					<Modal.Header closeButton>
+						<Modal.Title id="contained-modal-title-vcenter">
+							Fast Forward Virtual Time
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<p>
+							You can select any date and time from the selector
+							below, to fast forward the current virtual time to
+							that time. Time must be in the future.
+						</p>
+						<input
+							type="text"
+							size="lg"
+							placeholder={virtualTime}
+							onFocus={(e) => (e.target.type = "datetime-local")}
+							onBlur={(e) => (e.target.type = "text")}
+							value={virtualTime}
+							onChange={(e) => {
+								setVirtualTime(e.target.value);
+							}}
+						/>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							variant="success"
+							onClick={() => {
+								updateVirtualClock();
+							}}
+						>
+							Simulate to new time
+						</Button>
+					</Modal.Footer>
+				</Modal>
 			</Container>
 		</Navbar>
 	);

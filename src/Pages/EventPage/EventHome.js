@@ -7,6 +7,9 @@ import TemplateModal from "../../components/TemplateModal";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import ParticipantForum from "./ParticipantForum";
 import SignupForum from "./SignupForum";
+import ENUM_MAPPING from "../../utils/enumMappings.js";
+import toast, { Toaster } from "react-hot-toast";
+
 const EventHome = () => {
 	const location = useLocation();
 	const data = location.state.payload;
@@ -26,7 +29,9 @@ const EventHome = () => {
 		imageUrl,
 		maxParticipants,
 		minParticipants,
+		registrationCount,
 		userInfo,
+		participantForumStatus,
 	} = data;
 
 	const [selectedForum, setSelectedForum] = useState(1);
@@ -39,11 +44,29 @@ const EventHome = () => {
 	const [participantForumAccess, setParticipantForumAccess] = useState(false);
 
 	const handleClose = () => setShow(false);
-	const handleOpen = () => setShow(true);
+	const handleShow = () => setShow(true);
 
-	const handleEventRegistration = async (e) => {
-		// const res= await axios.post(`${REACT_APP_BASE_API_URL}/`)
-		console.log("Registered!");
+	const notifySuccess = (msg) => toast.success(msg);
+	const notifyError = (msg) => toast.error(msg);
+
+	const handleEventRegistration = async () => {
+		console.log("Handling event registration");
+		const payload = {
+			eventId: eventId,
+			participantId: localStorage.getItem("userId"),
+		};
+		try {
+			const response = await axios.post(
+				`${REACT_APP_BASE_API_URL}/eventReg`,
+				payload
+			);
+			console.log("Response from API: ", response);
+			notifySuccess(response.data);
+		} catch (err) {
+			console.log("Error: ", err);
+			notifyError(err.response.data);
+		}
+		setShow(false);
 	};
 
 	const checkAccessParticipantForum = async (e) => {
@@ -58,6 +81,28 @@ const EventHome = () => {
 		setParticipantForumAccess(response.data);
 	};
 
+	const renderRegisterButton = () => {
+		return (
+			<div>
+				{fee > 0 ? (
+					<Button size="lg" variant="dark" onClick={handleShow}>
+						Register{" "}
+					</Button>
+				) : (
+					<Button
+						size="lg"
+						variant="dark"
+						onClick={() => {
+							handleEventRegistration();
+						}}
+					>
+						Register for free!{" "}
+					</Button>
+				)}
+			</div>
+		);
+	};
+
 	useEffect(() => {
 		//check if user is already registered or user is organizer
 		checkAccessParticipantForum();
@@ -65,6 +110,7 @@ const EventHome = () => {
 
 	return (
 		<div className="event-banner">
+			<Toaster />
 			<Card>
 				<Container>
 					<Card.Img
@@ -104,11 +150,27 @@ const EventHome = () => {
 						<h4>
 							<b>Organizer: </b> {userInfo?.screenName}
 						</h4>
+						<h4>
+							<b>Admission Policy: </b>
+							{ENUM_MAPPING[admissionPolicy]}
+						</h4>
+						<h4>
+							<b>Event Status: </b>
+							{ENUM_MAPPING[eventStatus]}
+						</h4>
+						<h4>
+							<b>Registrations: </b>
+							{registrationCount} / {maxParticipants}
+						</h4>
+						{/* <h4>
+							<b>Participant Forum: </b>
+							{ENUM_MAPPING[participantForumStatus]}
+						</h4> */}
 					</div>
 					<div>
-						<Button size="lg" variant="dark" onClick={handleOpen}>
-							Register{" "}
-						</Button>
+						{maxParticipants - registrationCount > 0
+							? renderRegisterButton()
+							: ""}
 					</div>
 					<TemplateModal
 						handleEventRegistration={() => handleEventRegistration}
