@@ -36,6 +36,8 @@ const EventHome = () => {
 	};
 
 	const [show, setShow] = useState(false);
+	const [participantForumAccess, setParticipantForumAccess] = useState(false);
+
 	const handleClose = () => setShow(false);
 	const handleOpen = () => setShow(true);
 
@@ -44,8 +46,21 @@ const EventHome = () => {
 		console.log("Registered!");
 	};
 
+	const checkAccessParticipantForum = async (e) => {
+		const payload = {
+			userId: localStorage.getItem("userId"),
+			eventId: eventId,
+		};
+		const response = await axios.get(
+			`${REACT_APP_BASE_API_URL}/participantForum/checkAccess`,
+			{ params: payload }
+		);
+		setParticipantForumAccess(response.data);
+	};
+
 	useEffect(() => {
 		//check if user is already registered or user is organizer
+		checkAccessParticipantForum();
 	}, []);
 
 	return (
@@ -111,13 +126,24 @@ const EventHome = () => {
 					onSelect={handleSelect}
 				>
 					<Nav.Item style={{ width: "50%" }}>
-						<Nav.Link eventKey="1">Sign up Forum</Nav.Link>
-					</Nav.Item>
-					<Nav.Item style={{ width: "50%" }}>
-						<Nav.Link eventKey="2" title="Item">
-							Participant Forum
+						<Nav.Link
+							eventKey="1"
+							onClick={() => {
+								window.location.reload(false);
+							}}
+						>
+							Sign up Forum
 						</Nav.Link>
 					</Nav.Item>
+					{participantForumAccess ? (
+						<Nav.Item style={{ width: "50%" }}>
+							<Nav.Link eventKey="2" title="Item">
+								Participant Forum
+							</Nav.Link>
+						</Nav.Item>
+					) : (
+						""
+					)}
 				</Nav>
 			</Container>
 

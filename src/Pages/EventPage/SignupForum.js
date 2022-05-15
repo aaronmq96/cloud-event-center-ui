@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button, Container, Form, Image } from "react-bootstrap";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import uploadImageToS3 from "../../utils/uploadImage";
@@ -53,6 +53,7 @@ const SignupForum = ({ eventId }) => {
 						alt="user"
 						style={{ maxHeight: "80px" }}
 					/>
+					{message?.byOrganizer ? <div>[Organizer]</div> : ""}
 				</div>
 				<div>
 					<div>{message?.userInfo?.screenName}</div>
@@ -82,15 +83,29 @@ const SignupForum = ({ eventId }) => {
 		);
 	};
 
+	const scrollToEnd = () => {
+		divRef.current.scrollIntoView({ behavior: "smooth" });
+	};
+
+	const divRef = useRef(null);
+
 	useEffect(() => {
 		getSignupForumMessages();
 	}, []);
+
+	useEffect(() => {
+		scrollToEnd();
+	}, [messages]);
 
 	return (
 		<div className="forum-wrapper">
 			<Container>
 				<div className="messages-wrapper">
 					{messages?.map(showMessage)}
+					<div
+						style={{ backgroundColor: "aliceblue" }}
+						ref={divRef}
+					></div>
 				</div>
 				<br />
 				<div>

@@ -49,6 +49,11 @@ const SearchResults = (props) => {
 								<div>
 									<b>Status:</b> {event?.eventStatus}
 								</div>
+								<div>
+									<b>Registrations: </b>
+									{event?.registrationCount} /{" "}
+									{event.maxParticipants}
+								</div>
 							</div>
 							<div className="search-results-button-wrapper">
 								<Link

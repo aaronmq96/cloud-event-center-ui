@@ -223,7 +223,7 @@ input:focus {
 }
 
 .search-result-wrapper {
-	height: 300px;
+	min-height: 200px;
 	margin-bottom: 50px;
 	border: 1px solid black;
 	border-radius: 15px;
