@@ -1,83 +1,80 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Atma&family=Dancing+Script:wght@500&family=Koulen&display=swap'); */
 
-@import url('https://fonts.googleapis.com/css2?family=Atma&family=Dancing+Script:wght@500&family=Koulen&family=Truculenta:opsz@12..72&family=Ubuntu&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Atma&family=Dancing+Script:wght@500&family=Koulen&family=Truculenta:opsz@12..72&family=Ubuntu&display=swap");
 /* @import url('https://fonts.googleapis.com/css2?family=Atma&family=Dancing+Script:wght@500&family=Koulen&family=Ubuntu&display=swap'); */
 
 .App {
-  text-align: center;
-  min-height: 100vh;
-  /* background-image: url('https://wallpaperstock.net/wallpapers/thumbs1/47766hd.jpg'); */
-  /* font-family: 'Atma', cursive;
+	text-align: center;
+	min-height: 100vh;
+	/* background-image: url('https://wallpaperstock.net/wallpapers/thumbs1/47766hd.jpg'); */
+	/* font-family: 'Atma', cursive;
   font-family: 'Dancing Script', cursive;
   font-family: 'Koulen', cursive; */
 
-  /* font-family: 'Atma', cursive;
+	/* font-family: 'Atma', cursive;
   font-family: 'Dancing Script', cursive;
   font-family: 'Koulen', cursive;
   font-family: 'Ubuntu', sans-serif; */
 
-  font-family: 'Atma', cursive;
-  font-family: 'Dancing Script', cursive;
-  font-family: 'Koulen', cursive;
-  font-family: 'Truculenta', sans-serif;
-  font-family: 'Ubuntu', sans-serif;
-  background-size: cover;
+	font-family: "Atma", cursive;
+	font-family: "Dancing Script", cursive;
+	font-family: "Koulen", cursive;
+	font-family: "Truculenta", sans-serif;
+	font-family: "Ubuntu", sans-serif;
+	background-size: cover;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+	height: 40vmin;
+	pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  height: 100%;
-
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+	height: 100%;
 }
 
 .App-link {
-  color: #61dafb;
+	color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
 
-  to {
-    transform: rotate(360deg);
-  }
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .register-wrapper,
 .create-event-wrapper {
-  text-align: left;
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-top: 50px;
-  min-height: 100vh;
-  margin-bottom: 50px;
+	text-align: left;
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-top: 50px;
+	min-height: 100vh;
+	margin-bottom: 50px;
 }
-
 
 .create-event-wrapper Form * {
-  font-size: 18px;
-  margin-top: 15px;
+	font-size: 18px;
+	margin-top: 15px;
 }
-
 
 /* .register-content {
   min-height: 75vh;
@@ -88,190 +85,181 @@
 } */
 
 .register-content * {
-  margin: 8px;
+	margin: 8px;
 }
 
 .input-main {
-  outline: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-
+	outline: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
 }
 
 input:focus {
-  outline: none;
+	outline: none;
 }
 
 .input-main:focus {
-  outline: none;
-  border-bottom: 1px solid black;
+	outline: none;
+	border-bottom: 1px solid black;
 }
 
 .signup-wrapper {
-  /* background-color: antiquewhite; */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	/* background-color: antiquewhite; */
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .signup-sub-wrapper {
-  width: 30%;
-  text-align: left;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 50px;
-  background-color: white;
-  border: 1px solid black;
-
+	width: 30%;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 50px;
+	background-color: white;
+	border: 1px solid black;
 }
 
-
 .s-input-main {
-  outline: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  font-size: 18px;
+	outline: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	font-size: 18px;
 }
 
 .buttons-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  /* width: 100%; */
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	/* width: 100%; */
 }
 
 .buttons-wrapper * {
-  margin-top: 10px;
+	margin-top: 10px;
 }
 
 .top-nav-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
 .top-nav-wrapper * {
-  font-size: 20px;
+	font-size: 20px;
 }
 
 .top-nav-right {
-  display: flex;
-  justify-content: flex-end;
-  width: 30%;
+	display: flex;
+	justify-content: flex-end;
+	width: 30%;
 }
 
 .top-nav-right * {
-  margin-left: 10px;
+	margin-left: 10px;
 }
 
 .search-wrapper {
-  display: flex;
-  padding: 50px;
-  margin: 100px 100px;
-  border-radius: 20px;
-  justify-content: space-evenly;
-  background-color: rgba(20, 19, 19, 0.555);
-  color: white;
+	display: flex;
+	padding: 50px;
+	margin: 100px 100px;
+	border-radius: 20px;
+	justify-content: space-evenly;
+	background-color: rgba(20, 19, 19, 0.555);
+	color: white;
 }
 
 .search-wrapper h2 {
-  text-align: left;
+	text-align: left;
 }
 
 .event-banner {
-  background-color: green;
-  height: 300px;
+	background-color: green;
+	height: 300px;
 }
 
 .event-info-wrapper {
-  padding: 50px;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
+	padding: 50px;
+	text-align: left;
+	display: flex;
+	justify-content: space-between;
 }
 
-
 .google-button-wrapper * {
-
-  font-family: 'Atma', cursive;
-  font-family: 'Dancing Script', cursive;
-  font-family: 'Koulen', cursive;
-
+	font-family: "Atma", cursive;
+	font-family: "Dancing Script", cursive;
+	font-family: "Koulen", cursive;
 }
 
 .search-results-image-wrapper {
-  width: 30%;
-  height: 100%;
+	width: 30%;
+	height: 100%;
 }
 
 .search-results-image-wrapper img {
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
 }
 
 .search-results-content-wrapper {
-  width: 50%;
-  height: 100%;
-  font-size: 24px;
-  text-align: left;
+	width: 50%;
+	height: 100%;
+	font-size: 17px;
+	text-align: left;
 }
 
 .search-results-button-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 10%;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 10%;
+	justify-content: center;
 }
 
 .search-result-wrapper {
-  height: 250px;
-  margin-bottom: 50px;
-  border: none;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.664);
-  /* color: white; */
+	height: 300px;
+	margin-bottom: 50px;
+	border: 1px solid black;
+	border-radius: 15px;
+	background-color: rgba(255, 255, 255, 0.664);
+	/* color: white; */
 }
 
 .messages-wrapper {
-
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 5px;
-  scroll-behavior: smooth;
-  overflow: scroll;
-  height: 500px
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 5px;
+	scroll-behavior: smooth;
+	overflow: scroll;
+	height: 500px;
 }
 
 .messages-wrapper div {
-  margin-top: 10px;
-  margin-bottom: 10px;
-
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .message-wrapper {
-  text-align: left;
-  display: flex;
-  margin-bottom: 10px;
+	text-align: left;
+	display: flex;
+	margin-bottom: 10px;
 }
 
 .message-wrapper :nth-child(1) {
-  margin-right: 20px;
+	margin-right: 20px;
 }
 
 .message-wrapper {
-  padding: 10px;
-  /* border: 1px solid silver; */
-
+	padding: 10px;
+	/* border: 1px solid silver; */
 }
 
 .forum-wrapper {
-  padding: 10px;
+	padding: 10px;
 }
