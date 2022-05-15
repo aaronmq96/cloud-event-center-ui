@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import uploadImageToS3 from "../../utils/uploadImage";
+import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate } from "react-router-dom";
+
 
 const EventForm = () => {
 	const [title, setTitle] = useState();
@@ -21,6 +24,17 @@ const EventForm = () => {
 	const [maxParticipants, setMaxParticipants] = useState();
 	const [image, setImage] = useState();
 	const [imageUrl, setImageUrl] = useState();
+
+
+	const navigate = useNavigate()
+
+	const notifySuccess = (message) => {
+		toast.success(message)
+	}
+
+	const notifyError = (message) => {
+		toast.error(message)
+	}
 
 	const handleCreateEvent = async (e) => {
 		e.preventDefault();
@@ -41,18 +55,30 @@ const EventForm = () => {
 			// "https://www.livenationentertainment.com/wp-content/uploads/2021/07/Live_Nation_Entertainment_Return_to_LIVE.jpg",
 			state,
 			zipcode,
-			minParticipants,
-			maxParticipants,
-			fee,
+			minParticipants: parseInt(minParticipants),
+			maxParticipants: parseInt(maxParticipants),
+			fee: parseFloat(fee),
 			admissionPolicy,
 		};
 		console.log(payload);
-		const res = await axios.post(
-			`${REACT_APP_BASE_API_URL}/event`,
-			payload
-		);
 
-		console.log("EVENT DEETS", res.data);
+		try {
+
+			const res = await axios.post(
+				`${REACT_APP_BASE_API_URL}/event`,
+				payload
+			);
+			console.log("EVENT DEETS", res.data);
+			notifySuccess(res.data)
+
+			navigate("/")
+
+		}
+		catch (err) {
+			console.log("error", err.response.data)
+			notifyError(err.response.data)
+
+		}
 	};
 
 	return (
@@ -190,6 +216,8 @@ const EventForm = () => {
 								onChange={(e) =>
 									setMinParticipants(e.target.value)
 								}
+
+								type="number"
 								value={minParticipants}
 							/>
 						</Form.Group>
@@ -202,6 +230,8 @@ const EventForm = () => {
 								onChange={(e) =>
 									setMaxParticipants(e.target.value)
 								}
+								type="number"
+
 								value={maxParticipants}
 							/>
 						</Form.Group>
@@ -214,6 +244,9 @@ const EventForm = () => {
 								placeholder="Fee"
 								value={fee}
 								onChange={(e) => setFee(e.target.value)}
+								type="float"
+							// type="number"
+
 							/>
 						</Form.Group>
 						<Form.Group as={Col} className="mb-3">
@@ -261,6 +294,7 @@ const EventForm = () => {
 					</div>
 				</Container>
 			</Form>
+			<Toaster />
 		</div>
 	);
 };
