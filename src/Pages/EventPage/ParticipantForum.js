@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Form, Image } from "react-bootstrap";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import uploadImageToS3 from "../../utils/uploadImage";
+import toast, { Toaster } from "react-hot-toast";
+import ENUM_MAPPING from "../../utils/enumMappings";
 
 const ParticipantForum = ({ eventId }) => {
 	const [messages, setMessages] = useState();
@@ -31,14 +33,20 @@ const ParticipantForum = ({ eventId }) => {
 			const imageLocation = await uploadImageToS3(image);
 			payload.imageUrl = imageLocation;
 		}
-		const response = await axios.post(
-			`${REACT_APP_BASE_API_URL}/participantForum/addMessage`,
-			payload
-		);
-		console.log(
-			"Response for posting new message in participant forum: ",
-			response
-		);
+		try {
+			const response = await axios.post(
+				`${REACT_APP_BASE_API_URL}/participantForum/addMessage`,
+				payload
+			);
+			console.log(
+				"Response for posting new message in participant forum: ",
+				response
+			);
+			toast.success(response.data);
+		} catch (err) {
+			console.log("Error: ", err);
+			toast.error(`Participant Forum ${ENUM_MAPPING[err.response.data]}`);
+		}
 		getParticipantForumMessages();
 	};
 

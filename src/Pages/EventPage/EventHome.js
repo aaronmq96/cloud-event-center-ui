@@ -175,6 +175,7 @@ const EventHome = () => {
 					<TemplateModal
 						handleEventRegistration={() => handleEventRegistration}
 						fee={fee}
+						admissionPolicy={admissionPolicy}
 						show={show}
 						handleClose={() => handleClose}
 					/>
