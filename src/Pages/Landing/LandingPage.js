@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import TopNav from "../../components/TopNav";
+// import TopNav from "../../components/TopNav";
 import SearchPanel from "./SearchPanel";
 import SearchResults from "./SearchResults";
 import { REACT_APP_BASE_API_URL } from "../../config";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const LandingPage = () => {
 	const [data, setData] = useState();
 	const [userData, setUserData] = useState();
-	const [location, setLocation] = useState("");
+	const [location, setLocation] = useState();
 	const [status, setStatus] = useState("Active");
 	const [startTime, setStartTime] = useState("");
 	const [endTime, setEndTime] = useState("");
@@ -67,6 +67,8 @@ const LandingPage = () => {
 		const res = await axios.get(`${REACT_APP_BASE_API_URL}/event/search`, {
 			params: payload,
 		});
+
+
 		console.log(res.data);
 		setData(res.data);
 	};

@@ -9,6 +9,7 @@ package-lock.json
 /src/config.js
 /src/config
 
+/src/config/s3Config.js
 # testing
 /coverage
 
