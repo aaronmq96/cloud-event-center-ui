@@ -93,7 +93,7 @@ const TopNav = () => {
 							{/* </Button> */}
 							<Offcanvas show={show} onHide={handleClose}>
 								<Offcanvas.Header closeButton>
-									<Offcanvas.Title>Offcanvas</Offcanvas.Title>
+									<Offcanvas.Title>Menu</Offcanvas.Title>
 								</Offcanvas.Header>
 								<Offcanvas.Body>
 									<Nav className="me-auto">
@@ -101,7 +101,9 @@ const TopNav = () => {
 										<Nav.Link href="/createEvent">
 											Create Event
 										</Nav.Link>
-										<Nav.Link href="/">My Events</Nav.Link>
+										<Nav.Link href="/myEvents">
+											My Events
+										</Nav.Link>
 										<Nav.Link
 											onClick={handleSignOut}
 											href="/login"
