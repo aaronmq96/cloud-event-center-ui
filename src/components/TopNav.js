@@ -38,9 +38,8 @@ const TopNav = () => {
 		const response = await axios.get(
 			`${REACT_APP_BASE_API_URL}/virtualTime/get`
 		);
-		setVirtualTime(
-			moment(response.data.localDateTime).format("MM/DD/YYYY, hh:mm A")
-		);
+		console.log("Virtual time: " + response.data);
+		setVirtualTime(moment(response.data).format("MM/DD/YYYY, hh:mm A"));
 	};
 
 	const updateVirtualClock = async (e) => {
