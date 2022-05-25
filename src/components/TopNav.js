@@ -13,7 +13,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { REACT_APP_BASE_API_URL } from "../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+// import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 const TopNav = () => {
@@ -57,7 +57,7 @@ const TopNav = () => {
 
 	console.log(virtualTime);
 	return (
-		<Navbar bg="dark" variant="dark">
+		<Navbar style={{ boxShadow: "1px 1px 25px silver" }} variant="dark">
 			<Container>
 				<div className="top-nav-wrapper">
 					<div>
@@ -71,7 +71,7 @@ const TopNav = () => {
 								style={{ marginRight: "10px" }}
 							/>
 							{""}
-							Cloud Event Center
+							<span style={{ color: "black" }}>	Cloud Event Center</span>
 						</Navbar.Brand>
 					</div>
 					<div className="top-nav-right">
@@ -81,7 +81,7 @@ const TopNav = () => {
 								xmlns="http://www.w3.org/2000/svg"
 								width="50px"
 								height="50px"
-								fill="white"
+								fill="black"
 								className="bi bi-person-fill"
 								viewBox="0 0 16 16"
 								style={{ cursor: "pointer" }}
@@ -102,6 +102,12 @@ const TopNav = () => {
 										</Nav.Link>
 										<Nav.Link href="/myEvents">
 											My Events
+										</Nav.Link>
+										<Nav.Link href="/systemReports">
+											System Report
+										</Nav.Link>
+										<Nav.Link href="/userReports">
+											My Report
 										</Nav.Link>
 										<Nav.Link
 											onClick={handleSignOut}

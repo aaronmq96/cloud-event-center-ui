@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-// import TopNav from "../../components/TopNav";
 import SearchPanel from "./SearchPanel";
 import SearchResults from "./SearchResults";
 import { REACT_APP_BASE_API_URL } from "../../config";
@@ -18,7 +17,7 @@ const LandingPage = () => {
 	const navigate = useNavigate();
 
 	const handleLocationChange = (e) => {
-		// console.log(e.target.value)
+		console.log(e.target.value)
 		setLocation(e.target.value);
 	};
 
@@ -63,13 +62,10 @@ const LandingPage = () => {
 			organizer,
 		};
 
-		// console.log("payload", payload)
 		const res = await axios.get(`${REACT_APP_BASE_API_URL}/event/search`, {
 			params: payload,
 		});
 
-
-		console.log(res.data);
 		setData(res.data);
 	};
 
@@ -90,7 +86,6 @@ const LandingPage = () => {
 			setUserData(res.data);
 			setLocation(res.data?.address.city);
 
-			console.log(res.data);
 		} else {
 			console.log("here");
 		}
@@ -102,26 +97,32 @@ const LandingPage = () => {
 	}, []);
 
 	return (
-		<div>
-			<br />
-			<br />
-			<SearchPanel
-				data={data}
-				getSearchResults={() => getSearchResults}
-				location={location}
-				handleLocationChange={() => handleLocationChange}
-				status={status}
-				handleStatusChange={() => handleStatusChange}
-				startTime={startTime}
-				handleStartTimeChange={() => handleStartTimeChange}
-				endTime={endTime}
-				handleEndTimeChange={() => handleEndTimeChange}
-				keyword={keyword}
-				handleKeywordChange={() => handleKeywordChange}
-				organizer={organizer}
-				handleOrganizerChange={() => handleOrganizerChange}
-			/>
-			<SearchResults data={data} />
+
+		<div className="wrap-home">
+			<div className="overlay">
+				<div>
+					<br />
+					<br />
+					<SearchPanel
+						data={data}
+						getSearchResults={() => getSearchResults}
+						location={location}
+						handleLocationChange={() => handleLocationChange}
+						status={status}
+						handleStatusChange={() => handleStatusChange}
+						startTime={startTime}
+						handleStartTimeChange={() => handleStartTimeChange}
+						endTime={endTime}
+						handleEndTimeChange={() => handleEndTimeChange}
+						keyword={keyword}
+						handleKeywordChange={() => handleKeywordChange}
+						organizer={organizer}
+						handleOrganizerChange={() => handleOrganizerChange}
+					/>
+					<SearchResults data={data} />
+				</div>
+
+			</div>
 		</div>
 	);
 };
