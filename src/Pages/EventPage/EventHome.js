@@ -2,13 +2,14 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Nav } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import TemplateModal from "../../components/TemplateModal";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import ParticipantForum from "./ParticipantForum";
 import SignupForum from "./SignupForum";
 import ENUM_MAPPING from "../../utils/enumMappings.js";
 import toast, { Toaster } from "react-hot-toast";
+import ReviewModal from "../../components/ReviewModal";
 
 const EventHome = () => {
 	const location = useLocation();
@@ -35,20 +36,25 @@ const EventHome = () => {
 	} = data;
 
 	const [selectedForum, setSelectedForum] = useState(1);
-	const handleSelect = (eventKey) => {
-		console.log(eventKey);
-		setSelectedForum(eventKey);
-	};
-
-	const [show, setShow] = useState(false);
 	const [participantForumAccess, setParticipantForumAccess] = useState(false);
+	const [show, setShow] = useState(false);
+	const [reviewModalShow, setReviewModalShow] = useState(false)
+
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const handleAddReviewClose = () => setReviewModalShow(false);
+	const handleAddReviewShow = () => setReviewModalShow(true);
+
+
 	const notifySuccess = (msg) => toast.success(msg);
 	const notifyError = (msg) => toast.error(msg);
 
+	const handleSelect = (eventKey) => {
+		console.log(eventKey);
+		setSelectedForum(eventKey);
+	};
 	const handleEventRegistration = async () => {
 		console.log("Handling event registration");
 		const payload = {
@@ -148,7 +154,7 @@ const EventHome = () => {
 							<b>Fee: </b> $ {fee}
 						</h4>
 						<h4>
-							<b>Organizer: </b> {userInfo?.screenName}
+							<b>Organizer: </b> <Link to={`/reviewAndReputation`} state={{ payload: userInfo }}>{userInfo?.screenName}</Link>
 						</h4>
 						<h4>
 							<b>Admission Policy: </b>
@@ -171,6 +177,15 @@ const EventHome = () => {
 						{maxParticipants - registrationCount > 0
 							? renderRegisterButton()
 							: ""}
+						<br />
+						{participantForumAccess ?
+							<Button size="lg"
+								onClick={handleAddReviewShow}>
+								Add Event Review
+							</Button> :
+							<></>
+						}
+
 					</div>
 					<TemplateModal
 						handleEventRegistration={() => handleEventRegistration}
@@ -179,6 +194,9 @@ const EventHome = () => {
 						show={show}
 						handleClose={() => handleClose}
 					/>
+					<ReviewModal
+						show={reviewModalShow}
+						handleClose={() => handleAddReviewClose} />
 				</div>
 			</Container>
 
@@ -222,14 +240,3 @@ const EventHome = () => {
 };
 
 export default EventHome;
-
-{
-	/* <Card.ImgOverlay>
-    <Card.Title>Event Name</Card.Title>
-    <Card.Text>
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This content is a little bit longer.
-    </Card.Text>
-    <Card.Text>Last updated 3 mins ago</Card.Text>
-</Card.ImgOverlay> */
-}

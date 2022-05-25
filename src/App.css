@@ -6,7 +6,7 @@
 .App {
 	text-align: center;
 	min-height: 100vh;
-	/* background-image: url('https://wallpaperstock.net/wallpapers/thumbs1/47766hd.jpg'); */
+
 	/* font-family: 'Atma', cursive;
   font-family: 'Dancing Script', cursive;
   font-family: 'Koulen', cursive; */
@@ -76,14 +76,6 @@
 	margin-top: 15px;
 }
 
-/* .register-content {
-  min-height: 75vh;
-  width: 40%;
-  margin-top: auto;
-  margin-bottom: auto;
-  text-align: left;
-} */
-
 .register-content * {
 	margin: 8px;
 }
@@ -105,7 +97,6 @@ input:focus {
 }
 
 .signup-wrapper {
-	/* background-color: antiquewhite; */
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -137,7 +128,6 @@ input:focus {
 	display: flex;
 	flex-direction: column;
 	margin-top: 20px;
-	/* width: 100%; */
 }
 
 .buttons-wrapper * {
@@ -152,12 +142,14 @@ input:focus {
 
 .top-nav-wrapper * {
 	font-size: 20px;
+
 }
 
 .top-nav-right {
 	display: flex;
 	justify-content: flex-end;
 	width: 30%;
+
 }
 
 .top-nav-right * {
@@ -170,8 +162,25 @@ input:focus {
 	margin: 100px 100px;
 	border-radius: 20px;
 	justify-content: space-evenly;
-	background-color: rgba(20, 19, 19, 0.555);
-	color: white;
+	/* background-color: rgba(20, 19, 19, 0.555); */
+	box-shadow: 5px 5px black 5px;
+	background-color: rgba(255, 255, 255, 0.85);
+	color: black;
+}
+
+.wrap-home {
+	background-image: url('https://wallpaperaccess.com/full/2489838.jpg');
+	background-size: contain;
+	min-height: 100vh;
+}
+
+.overlay {
+	background-color: rgba(0, 0, 0, 0.274);
+	background-size: contain;
+	/* position: absolute; */
+	/* height: 100%; */
+	min-height: 100vh;
+	width: 100%;
 }
 
 .search-wrapper h2 {
@@ -227,7 +236,7 @@ input:focus {
 	margin-bottom: 50px;
 	border: 1px solid black;
 	border-radius: 15px;
-	background-color: rgba(255, 255, 255, 0.664);
+	background-color: rgba(255, 255, 255, 0.85);
 	/* color: white; */
 }
 
@@ -262,4 +271,31 @@ input:focus {
 
 .forum-wrapper {
 	padding: 10px;
+}
+
+.report-wrapper {
+	display: flex;
+	justify-content: space-around;
+
+}
+
+.user-details-wrapper {
+	padding-top: 20px;
+	display: flex;
+	justify-content: space-around;
+
+}
+
+.brief-wrapper {
+	padding-top: 10px;
+	width: 25%;
+	min-height: 300px;
+	background-color: rgba(255, 252, 252, 0.576);
+}
+
+
+.reviews-wrapper {
+	padding: 10px;
+	width: 70%;
+	min-height: 800px;
 }
