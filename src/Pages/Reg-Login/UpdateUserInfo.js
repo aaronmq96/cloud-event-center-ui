@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { REACT_APP_BASE_API_URL } from "../../config";
+import toast, { Toaster } from "react-hot-toast";
+
 const UpdateUserInfo = () => {
 	const navigate = useNavigate();
 
@@ -16,6 +18,10 @@ const UpdateUserInfo = () => {
 	const [city, setCity] = useState();
 	const [state, setState] = useState();
 	const [zipcode, setZipcode] = useState();
+
+	const notifySuccess = (msg) => toast.success(msg);
+	const notifyError = (msg) => toast.error(msg);
+
 
 	const handleUpdate = async (e) => {
 		e.preventDefault();
@@ -42,10 +48,12 @@ const UpdateUserInfo = () => {
 				userPayload
 			);
 			console.log(res.data);
+			// notifySuccess(res.data);
+
 
 			if (res.data) navigate("/");
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			notifyError(error.response.data);
 		}
 	};
 
@@ -64,6 +72,8 @@ const UpdateUserInfo = () => {
 
 	return (
 		<div className="register-wrapper">
+			<Toaster />
+
 			<div className="register-content">
 				<h2>Update Details</h2>
 				<br />

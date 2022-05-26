@@ -161,8 +161,8 @@ const MyEvents = () => {
 						{
 							events?.map(event => {
 								return (
-									<option key={event.eventId} value={event.eventId}>
-										{event.title}
+									<option key={event?.eventId} value={event?.eventId}>
+										{event?.title}
 									</option>
 								)
 							})
@@ -201,13 +201,13 @@ const MyEvents = () => {
 												<button type="button"
 													style={{ padding: "10px", margin: "10px" }}
 													className="btn btn-success"
-													onClick={() => handleApprove(participant.registrationId)}>
+													onClick={() => handleApprove(participant?.registrationId)}>
 													Approve</button>
 
 												<button type="button"
 													style={{ padding: "10px", margin: "10px" }}
 													className="btn btn-danger"
-													onClick={() => handleReject(participant.registrationId)}>
+													onClick={() => handleReject(participant?.registrationId)}>
 													Decline</button>
 											</div>
 

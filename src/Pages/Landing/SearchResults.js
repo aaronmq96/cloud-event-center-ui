@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Container, ListGroup } from "react-bootstrap";
+import moment from "moment";
+
 import { Link } from "react-router-dom";
 import ENUM_MAPPING from "../../utils/enumMappings";
 
@@ -10,7 +12,6 @@ const SearchResults = (props) => {
 		<div>
 			<ListGroup style={{ marginLeft: "100px", marginRight: "100px" }}>
 				{data?.map((event) => {
-					// console.log(event)
 					return (
 						<ListGroup.Item
 							className="d-flex justify-content-between align-items-start search-result-wrapper"
@@ -31,14 +32,14 @@ const SearchResults = (props) => {
 								</div>
 								<br />
 								<div>
-									<b>Start:</b> {event?.startTime}
+									<b>Start:</b> {moment(event?.startTime).format("Do MMMM YYYY - hh:mm a")}
 								</div>
 								<div>
-									<b>End:</b> {event?.endTime}
+									<b>End:</b> {moment(event?.endTime).format("Do MMMM YYYY - hh:mm a")}
 								</div>
 								<div>
 									<b>Registration Deadline:</b>{" "}
-									{event?.deadline}
+									{moment(event?.deadline).format("Do MMMM YYYY - hh:mm a")}
 								</div>
 								<div>
 									<b>Venue:</b> {event?.address?.city}

@@ -61,6 +61,7 @@ const EventHome = () => {
 		console.log(e.target.value)
 		setTextFeedback(e.target.value)
 	}
+
 	const notifySuccess = (msg) => toast.success(msg);
 	const notifyError = (msg) => toast.error(msg);
 
@@ -141,7 +142,7 @@ const EventHome = () => {
 			notifySuccess(res.data);
 		}
 		catch (error) {
-			console.log(error)
+			// console.log(error)
 			notifyError(error.response.data);
 		}
 		setShow(false)
@@ -216,10 +217,10 @@ const EventHome = () => {
 							<b>Registrations: </b>
 							{registrationCount} / {maxParticipants}
 						</h4>
-						{/* <h4>
+						<h4>
 							<b>Participant Forum: </b>
 							{ENUM_MAPPING[participantForumStatus]}
-						</h4> */}
+						</h4>
 					</div>
 					<div>
 						{maxParticipants - registrationCount > 0
