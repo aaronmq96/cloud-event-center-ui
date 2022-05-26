@@ -3,6 +3,7 @@ const ENUM_MAPPING = {
 	OnApproval: "On approval",
 	SignUpOpen: "Signup open",
 	SignUpClosed: "SignUp closed",
+	Ongoing: "Ongoing",
 	Finished: "Finished",
 	Cancelled: "Cancelled",
 	Person: "Person",

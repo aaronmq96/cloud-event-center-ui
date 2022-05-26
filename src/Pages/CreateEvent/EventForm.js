@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import uploadImageToS3 from "../../utils/uploadImage";
-import toast, { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
 
 const EventForm = () => {
 	const [title, setTitle] = useState();
@@ -19,22 +18,23 @@ const EventForm = () => {
 	const [state, setState] = useState();
 	const [zipcode, setZipcode] = useState();
 	const [fee, setFee] = useState(0);
-	const [admissionPolicy, setAdmissionPolicy] = useState();
+	const [admissionPolicy, setAdmissionPolicy] = useState(
+		"FirstComeFirstServe"
+	);
 	const [minParticipants, setMinParticipants] = useState();
 	const [maxParticipants, setMaxParticipants] = useState();
 	const [image, setImage] = useState();
 	const [imageUrl, setImageUrl] = useState();
 
-
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const notifySuccess = (message) => {
-		toast.success(message)
-	}
+		toast.success(message);
+	};
 
 	const notifyError = (message) => {
-		toast.error(message)
-	}
+		toast.error(message);
+	};
 
 	const handleCreateEvent = async (e) => {
 		e.preventDefault();
@@ -63,21 +63,17 @@ const EventForm = () => {
 		console.log(payload);
 
 		try {
-
 			const res = await axios.post(
 				`${REACT_APP_BASE_API_URL}/event`,
 				payload
 			);
 			console.log("EVENT DEETS", res.data);
-			notifySuccess(res.data)
+			notifySuccess(res.data);
 
-			navigate("/")
-
-		}
-		catch (err) {
-			console.log("error", err.response.data)
-			notifyError(err.response.data)
-
+			navigate("/");
+		} catch (err) {
+			console.log("error", err.response.data);
+			notifyError(err.response.data);
 		}
 	};
 	useEffect(() => {
@@ -222,7 +218,6 @@ const EventForm = () => {
 								onChange={(e) =>
 									setMinParticipants(e.target.value)
 								}
-
 								type="number"
 								value={minParticipants}
 							/>
@@ -237,7 +232,6 @@ const EventForm = () => {
 									setMaxParticipants(e.target.value)
 								}
 								type="number"
-
 								value={maxParticipants}
 							/>
 						</Form.Group>
@@ -251,8 +245,7 @@ const EventForm = () => {
 								value={fee}
 								onChange={(e) => setFee(e.target.value)}
 								type="float"
-							// type="number"
-
+								// type="number"
 							/>
 						</Form.Group>
 						<Form.Group as={Col} className="mb-3">
