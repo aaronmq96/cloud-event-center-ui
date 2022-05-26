@@ -47,7 +47,7 @@ const SystemReports = () => {
 	return (
 		<div>
 			<br />
-			<h3>System Reports</h3>
+			<h2>System Statistics</h2>
 			<br />
 			<br />
 			<br />
@@ -76,7 +76,7 @@ const SystemReports = () => {
 					/>
 
 					<ReportCard
-						title="Total number of partipant requests / Total number of minimum participants"
+						title="Participant Requests : Minimum Participants"
 						value={stat4}
 					/>
 				</div>
@@ -97,6 +97,8 @@ const SystemReports = () => {
 						value={stat6}
 					/>
 				</div>
+				<br />
+
 			</Container>
 		</div>
 	);

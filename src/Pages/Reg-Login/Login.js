@@ -54,7 +54,6 @@ const Login = () => {
             }
             else {
                 notifyError("User not verified. Please verify to continue.")
-                console.log("not verified")
             }
         } catch (error) {
             var errorCode = error.code;
