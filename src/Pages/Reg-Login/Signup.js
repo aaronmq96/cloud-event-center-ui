@@ -63,10 +63,7 @@ const Signup = () => {
     }
 
     const handlePasswordChange = (e) => {
-
-        console.log(e.target.value)
         setPassword(e.target.value)
-
     }
 
     const checkIfUserLoggedIn = () => {
