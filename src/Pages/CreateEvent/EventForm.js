@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import uploadImageToS3 from "../../utils/uploadImage";
@@ -80,6 +80,12 @@ const EventForm = () => {
 
 		}
 	};
+	useEffect(() => {
+		if (!localStorage.getItem("userId")) {
+			navigate("/login");
+			return;
+		}
+	}, [])
 
 	return (
 		<div className="create-event-wrapper">

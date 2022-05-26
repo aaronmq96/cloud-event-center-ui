@@ -1,27 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { Rating } from 'react-simple-star-rating'
 
 const ReviewModal = (props) => {
 
-    const { show, handleClose } = props;
+    const { show, textFeedback, rating, handleClose, handleTextFeedback, handleRating, handleReviewSubmit } = props;
 
-    //move these to parent 
-    //from here
-    const [reviewText, setReviewText] = useState("")
-    const [rating, setRating] = useState(0)
-
-
-    const handleRating = (rate) => {
-        setRating(rate)
-
-    }
-
-    const handleReviewText = (e) => {
-        console.log(e.target.value)
-        setReviewText(e.target.value)
-    }
-    //to here
     return (
         <>
 
@@ -41,13 +25,14 @@ const ReviewModal = (props) => {
                         >
                             <Form.Label> Write Review </Form.Label>
                             <Form.Control as="textarea" rows={3}
-                                onChange={handleReviewText} />
+                                onChange={handleTextFeedback()}
+                                value={textFeedback} />
                         </Form.Group>
                         <Form.Group
                         >
                             <Form.Label> Rate {"\n"}</Form.Label>
                             <br></br>
-                            <Rating onClick={handleRating} ratingValue={rating} />
+                            <Rating onClick={handleRating()} ratingValue={rating} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -55,7 +40,7 @@ const ReviewModal = (props) => {
                     <Button variant="secondary" onClick={handleClose()}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose()}>
+                    <Button variant="primary" onClick={handleReviewSubmit()}>
                         Submit
                     </Button>
                 </Modal.Footer>

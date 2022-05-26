@@ -40,6 +40,7 @@ const TopNav = () => {
 		);
 		console.log("Virtual time: " + response.data);
 		setVirtualTime(moment(response.data).format("MM/DD/YYYY, hh:mm A"));
+		localStorage.setItem("virtualTime", response.data)
 	};
 
 	const updateVirtualClock = async (e) => {

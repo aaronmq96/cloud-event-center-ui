@@ -1,26 +1,66 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { REACT_APP_BASE_API_URL } from "../../config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReviewModal from "../../components/ReviewModal";
-
+import toast, { Toaster } from "react-hot-toast";
 
 const MyEvents = () => {
+
+	const navigate = useNavigate();
+
 	const [approvalList, setApprovalList] = useState()
+	const [userData, setUserData] = useState();
 	const [approvedList, setApprovedList] = useState()
 	const [events, setEvents] = useState()
 	const [selectedEvent, setSelectedEvent] = useState()
-
 	const [show, setShow] = useState(false)
+	const [textFeedback, setTextFeedback] = useState("")
+	const [rating, setRating] = useState(0)
+	const [revieweeId, setRevieweeId] = useState()
+
+	const getUserDetails = async () => {
+		const userId = localStorage.getItem("userId");
+
+		if (!userId) {
+			navigate("/login");
+			return;
+		} else {
+			console.log(userId);
+		}
+
+		const res = await axios.get(
+			`${REACT_APP_BASE_API_URL}/user/getUser/${userId}`
+		);
+		if (res.data) {
+			setUserData(res.data);
+
+		}
+	};
+	const handleRating = (rate) => {
+		setRating(rate / 20)
+		console.log(rate / 20)
+	}
+
+	const notifySuccess = (msg) => toast.success(msg);
+	const notifyError = (msg) => toast.error(msg);
+
+	const handleTextFeedback = (e) => {
+		console.log(e.target.value)
+		setTextFeedback(e.target.value)
+	}
 
 	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
-
+	const handleShow = (revieweeId) => {
+		setShow(true);
+		setRevieweeId(revieweeId)
+	}
 	const fetchAllOrganizerEvents = async () => {
+
 		const organizerId = localStorage.getItem("userId");
 		const res = await axios.get(`${REACT_APP_BASE_API_URL}/event/byOrganizer/${organizerId}`)
-		console.log("organizer", res.data)
+		console.log("all events", res.data)
 		setEvents(res.data);
 	}
 
@@ -60,13 +100,45 @@ const MyEvents = () => {
 		const payload = {
 			registrationId
 		}
-		console.log("decline")
 		const res = await axios.put(`${REACT_APP_BASE_API_URL}/eventReg/decline`, payload)
-		console.log("Rejected", res.data)
+		console.log("Declined", res.data)
 		await fetchUnapprovedList();
 	}
 
+	const handleReviewSubmit = async () => {
+
+		const userId = localStorage.getItem("userId")
+		const virtualTime = localStorage.getItem("virtualTime")
+
+		const payload = {
+			revieweeId,
+			reviewerId: userId,
+			eventId: selectedEvent,
+			currentTime: virtualTime,
+			revieweeType: "Participant",
+			rating,
+			textFeedback
+		}
+
+		try {
+			const res = await axios.post(`${REACT_APP_BASE_API_URL}/review/add`, payload)
+			notifySuccess(res.data);
+		}
+		catch (error) {
+			console.log(error)
+			notifyError(error.response.data);
+		}
+		setShow(false)
+	}
+
+
 	useEffect(() => {
+
+		if (!localStorage.getItem("userId")) {
+			navigate("/login");
+			return;
+		}
+		getUserDetails();
 		fetchAllOrganizerEvents();
 	}, [])
 
@@ -77,6 +149,7 @@ const MyEvents = () => {
 
 	return (
 		<div>
+			<Toaster />
 			<div className="container">
 
 				<h3 style={{ padding: "20px 0px" }}>Event Registration Requests</h3>
@@ -116,8 +189,10 @@ const MyEvents = () => {
 												<div><b>Name: </b>  {participant?.userInfo?.fullName}</div>
 												<div>  {participant?.userInfo?.emailId}</div>
 
-												<Link to={`/`}><div>@{participant?.userInfo?.screenName}
-												</div></Link>
+												<Link to={`/reviewAndReputation`}
+													state={{ payload: { ...(participant?.userInfo), type: "Participant" } }}
+												><div>@{participant?.userInfo?.screenName}
+													</div></Link>
 											</div>
 
 
@@ -164,7 +239,8 @@ const MyEvents = () => {
 												<div><b>Name: </b>  {participant?.userInfo?.fullName}</div>
 												<div>  {participant?.userInfo?.emailId}</div>
 
-												<Link to={`/`}>
+												<Link to={`/reviewAndReputation`}
+													state={{ payload: { ...(participant?.userInfo), type: "Participant" } }}>
 													<div>@{participant?.userInfo?.screenName}
 													</div>
 												</Link>
@@ -175,7 +251,8 @@ const MyEvents = () => {
 												<button type="button"
 													style={{ padding: "10px", margin: "10px" }}
 													className="btn btn-primary"
-													onClick={handleShow}
+													onClick={() => handleShow(participant?.userInfo?.userId)}
+
 												>
 													Add Review</button>
 											</div>
@@ -189,7 +266,12 @@ const MyEvents = () => {
 			</Container>
 			<ReviewModal
 				show={show}
-				handleClose={() => handleClose} />
+				rating={rating}
+				handleClose={() => handleClose}
+				handleTextFeedback={() => handleTextFeedback}
+				handleRating={() => handleRating}
+				handleReviewSubmit={() => handleReviewSubmit}
+			/>
 		</div >
 	)
 }
