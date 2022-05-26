@@ -22,19 +22,27 @@ const SystemReports = () => {
 	const [stat6, setStat6] = useState(0);
 
 	const getReport = async () => {
-		// try {
-		// 	const response = await axios.get(
-		// 		`${REACT_APP_BASE_API_URL}/systemReport/get/${localStorage.getItem(
-		// 			"virtualTime"
-		// 		)}`
-		// 	);
-		// 	console.log("Response: ", response);
-		// } catch (err) {
-		// 	console.log("Error: ", err);
-		// }
+		try {
+			const response = await axios.get(
+				`${REACT_APP_BASE_API_URL}/systemReport/get/${localStorage.getItem(
+					"virtualTime"
+				)}`
+			);
+			console.log("Response: ", response);
+			setStat1(response.data.numberOfCreatedEvents);
+			setStat2(response.data.percentageOfPaidEvents);
+			setStat3(response.data.numberOfCancelledEvents);
+			setStat4(response.data.eventParticipantsToMinRequirementsRatio);
+			setStat5(response.data.numberOfFinishedEvents);
+			setStat6(response.data.avgTotalParticipantsForFinishedEvents);
+		} catch (err) {
+			console.log("Error: ", err);
+		}
 	};
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		getReport();
+	}, []);
 
 	return (
 		<div>
@@ -54,8 +62,6 @@ const SystemReports = () => {
 						title="Percentage of paid events"
 						value={stat2}
 					/>
-
-					<ReportCard title="Statistic 3" value="200" />
 				</div>
 				<br />
 				<br />
@@ -64,9 +70,32 @@ const SystemReports = () => {
 				<br />
 
 				<div className="report-wrapper">
-					<ReportCard title="Statistic 1" value="90" />
+					<ReportCard
+						title="Number of cancelled events"
+						value={stat3}
+					/>
 
-					<ReportCard title="Statistic 2" value="100" />
+					<ReportCard
+						title="Total number of partipant requests / Total number of minimum participants"
+						value={stat4}
+					/>
+				</div>
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+
+				<div className="report-wrapper">
+					<ReportCard
+						title="Number of finished events"
+						value={stat5}
+					/>
+
+					<ReportCard
+						title="Average number of participants"
+						value={stat6}
+					/>
 				</div>
 			</Container>
 		</div>
