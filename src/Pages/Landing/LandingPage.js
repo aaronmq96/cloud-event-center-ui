@@ -23,7 +23,6 @@ const LandingPage = () => {
 
 	const handleStatusChange = (e) => {
 		console.log(e.target.value);
-
 		setStatus(e.target.value);
 	};
 	const handleStartTimeChange = (e) => {
@@ -50,7 +49,7 @@ const LandingPage = () => {
 		let userLocation = location;
 		if (userLocation === undefined) {
 			const userDataObj = await getUserDetails();
-			userLocation = userDataObj.address.city;
+			userLocation = await userDataObj.address.city;
 		}
 
 		const payload = {

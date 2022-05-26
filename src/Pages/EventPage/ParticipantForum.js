@@ -95,6 +95,7 @@ const ParticipantForum = ({ eventId }) => {
 
 	return (
 		<div className="forum-wrapper">
+			<Toaster />
 			<Container>
 				<div className="messages-wrapper">
 					{messages?.map(showMessage)}

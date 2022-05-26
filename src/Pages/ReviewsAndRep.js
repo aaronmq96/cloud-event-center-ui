@@ -15,13 +15,14 @@ const ReviewsAndRep = (props) => {
     console.log(data)
     const getUserReviews = async () => {
         const res = await axios.get(`${REACT_APP_BASE_API_URL}/review/get`, {
+
             params: {
                 revieweeId: data?.userId,
                 revieweeType: data?.type
             }
         })
         console.log("reviews", res.data)
-        setReviews(reviews)
+        setReviews(res.data)
     }
 
 
@@ -53,7 +54,7 @@ const ReviewsAndRep = (props) => {
 
                     <div>{data?.fullName}</div>
                     <div>@{data?.screenName}</div>
-                    <Rating ratingValue={data?.type == "Organizer" ? reviews?.organizerRating * 5 : reviews?.participantRating * 5} />
+                    <Rating readonly='true' ratingValue={data?.type == "Organizer" ? data?.organizerRating * 20 : data?.participantRating * 20} />
 
                 </div>
                 <div className='reviews-wrapper'>
@@ -63,24 +64,27 @@ const ReviewsAndRep = (props) => {
                         reviews?.map((review, index) => {
 
                             return (
-                                <Card key={index}>
-                                    <Card.Body>
-                                        <Card.Title>Review #{index + 1}</Card.Title>
-                                        <Card.Text>
-                                            {review?.textFeedback}
-                                        </Card.Text>
-                                        <Rating ratingValue={review?.rating * 5} />
-                                    </Card.Body>
-                                </Card>
+                                <>
+                                    <Card key={index}>
+                                        <Card.Body>
+                                            <Card.Title>Review #{index + 1}</Card.Title>
+                                            <Card.Text>
+                                                {review?.textFeedback}
+                                            </Card.Text>
+                                            <Rating readonly='true' ratingValue={review?.rating * 20} />
+                                        </Card.Body>
+                                    </Card>
+                                    <br />
+                                </>
                             )
                         })
 
                     }
 
                 </div>
-            </Container>
+            </Container >
 
-        </div>
+        </div >
     )
 }
 

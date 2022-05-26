@@ -7,15 +7,19 @@ import GoogleButton from 'react-google-button';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { REACT_APP_BASE_API_URL } from '../../config';
+import toast, { Toaster } from "react-hot-toast";
+
 
 const Login = () => {
 
     const email = useRef()
     const password = useRef()
     const navigate = useNavigate()
-    const [message, setMessage] = useState()
+    // const [message, setMessage] = useState()
     const provider = new GoogleAuthProvider();
 
+    const notifySuccess = (msg) => toast.success(msg);
+    const notifyError = (msg) => toast.error(msg);
 
     const checkUser = async (e) => {
 
@@ -39,18 +43,17 @@ const Login = () => {
             const res = await signInWithEmailAndPassword(auth, email.current.value, password.current.value)
 
             const user = res.user;
-            console.log("deets", user);
+            // console.log("deets", user);
 
 
             if (user.emailVerified) {
-                console.log("verified")
                 localStorage.setItem('userId', user.uid)
                 localStorage.setItem('userEmail', user.email)
-
+                notifySuccess("User Verified")
                 checkUser()
             }
             else {
-                setMessage("User not verified. Please verify to continue.")
+                notifyError("User not verified. Please verify to continue.")
                 console.log("not verified")
             }
         } catch (error) {
@@ -61,15 +64,13 @@ const Login = () => {
 
             switch (errorCode) {
                 case 'auth/wrong-password':
-                    console.log("Entered password is incorrect !");
-                    setMessage('Entered password is incorrect !')
+                    notifyError('Entered password is incorrect !')
                     break
                 case 'auth/user-not-found':
-                    console.log("No user with this email exists !");
-                    setMessage('No user with this email exists !')
+                    notifyError('No user with this email exists !')
                     break
                 default:
-                    console.log("Unknown Error Occured")
+                    notifyError("Unknown Error Occured")
             }
 
         }
@@ -131,6 +132,7 @@ const Login = () => {
         <div className="wrap-home">
             <div className="overlay">
                 <div className='signup-wrapper' >
+                    <Toaster />
                     <div className='signup-sub-wrapper'>
                         <h2 style={{ textAlign: "center" }}>Login</h2>
                         <br />
@@ -158,7 +160,7 @@ const Login = () => {
                             </div>
                         </Form >
                         <p style={{ textAlign: "center", marginTop: "10px" }}>Dont have an account? <span><a href="/signup"> Create new acccount</a></span></p>
-                        <p style={{ color: "red" }}>{message}</p>
+                        {/* <p style={{ color: "red" }}>{message}</p> */}
                     </div >
                 </div >
             </div>
