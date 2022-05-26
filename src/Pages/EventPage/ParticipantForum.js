@@ -60,6 +60,7 @@ const ParticipantForum = ({ eventId }) => {
 						alt="user"
 						style={{ maxHeight: "80px" }}
 					/>
+					{message?.byOrganizer ? <div>[Organizer]</div> : ""}
 				</div>
 				<div>
 					<div>{message?.userInfo?.screenName}</div>
