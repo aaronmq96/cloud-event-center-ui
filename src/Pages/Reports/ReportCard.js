@@ -15,8 +15,8 @@ const ReportCard = ({ title, value }) => {
     return (
         <Card
             style={{
-                width: "42%",
-                height: "20%",
+                width: "400px",
+                height: "200px",
                 borderLeft: "10px solid orange",
                 boxShadow: "1px 1px 15px silver",
             }}
@@ -25,8 +25,9 @@ const ReportCard = ({ title, value }) => {
                 <Card.Title>
                     <h3>{title}</h3>
                 </Card.Title>
+                <br></br>
                 <Card.Text>
-                    <h2>{value}</h2>
+                    <h1><b>{value}</b></h1>
                 </Card.Text>
             </Card.Body>
         </Card>
