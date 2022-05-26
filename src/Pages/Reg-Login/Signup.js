@@ -87,30 +87,34 @@ const Signup = () => {
 
     }, [])
     return (
-        <div className='signup-wrapper' >
-            <div className='signup-sub-wrapper'>
-                <h2 style={{ textAlign: "center" }}>Create your acccount</h2>
-                <br />
+        <div className="wrap-home">
+            <div className="overlay">
+                <div className='signup-wrapper' >
+                    <div className='signup-sub-wrapper'>
+                        <h2 style={{ textAlign: "center" }}>Create your acccount</h2>
+                        <br />
 
-                <Form>
-                    <Form.Group controlId="formGridEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control className="s-input-main" type="email" placeholder="Enter email" onChange={handleEmailChange} />
-                    </Form.Group>
+                        <Form>
+                            <Form.Group controlId="formGridEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control className="s-input-main" type="email" placeholder="Enter email" onChange={handleEmailChange} />
+                            </Form.Group>
 
-                    <Form.Group controlId="formGridPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control className="s-input-main" type="password" placeholder="Password" onChange={handlePasswordChange} />
-                    </Form.Group>
+                            <Form.Group controlId="formGridPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control className="s-input-main" type="password" placeholder="Password" onChange={handlePasswordChange} />
+                            </Form.Group>
 
-                    <div className='buttons-wrapper'>
-                        <Button variant="primary" type="submit" onClick={createAccount}>
-                            Sign Up
-                        </Button>
+                            <div className='buttons-wrapper'>
+                                <Button variant="primary" type="submit" onClick={createAccount}>
+                                    Sign Up
+                                </Button>
+                            </div>
+                        </Form>
+                        <p style={{ textAlign: "center", marginTop: "10px" }}>Already have an account? <span><a href="/login">Login </a></span></p>
+                        <p style={{ color: "red" }}> {message}</p>
                     </div>
-                </Form>
-                <p style={{ textAlign: "center", marginTop: "10px" }}>Already have an account? <span><a href="/login">Login </a></span></p>
-                <p style={{ color: "red" }}> {message}</p>
+                </div>
             </div>
         </div>
     )

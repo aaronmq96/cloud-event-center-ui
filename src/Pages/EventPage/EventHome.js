@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Nav } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import TemplateModal from "../../components/TemplateModal";
 import { REACT_APP_BASE_API_URL } from "../../config";
 import ParticipantForum from "./ParticipantForum";
@@ -13,6 +13,8 @@ import ReviewModal from "../../components/ReviewModal";
 
 const EventHome = () => {
 	const location = useLocation();
+	const navigate = useNavigate();
+
 	const data = location.state.payload;
 	console.log("Event Data", data);
 
@@ -39,8 +41,15 @@ const EventHome = () => {
 	const [participantForumAccess, setParticipantForumAccess] = useState(false);
 	const [show, setShow] = useState(false);
 	const [reviewModalShow, setReviewModalShow] = useState(false)
+	const [textFeedback, setTextFeedback] = useState("")
+	const [rating, setRating] = useState(0)
+	const [virtualTime, setVirtualTime] = useState()
 
 
+	const handleRating = (rate) => {
+		setRating(rate / 20)
+		console.log(rate / 20)
+	}
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -48,6 +57,10 @@ const EventHome = () => {
 	const handleAddReviewShow = () => setReviewModalShow(true);
 
 
+	const handleTextFeedback = (e) => {
+		console.log(e.target.value)
+		setTextFeedback(e.target.value)
+	}
 	const notifySuccess = (msg) => toast.success(msg);
 	const notifyError = (msg) => toast.error(msg);
 
@@ -109,8 +122,43 @@ const EventHome = () => {
 		);
 	};
 
+	const handleReviewSubmit = async () => {
+
+		const userId = localStorage.getItem("userId")
+
+		const payload = {
+			revieweeId: userInfo?.emailId,
+			reviewerId: userId,
+			eventId,
+			currentTime: virtualTime,
+			revieweeType: "Organizer",
+			rating,
+			textFeedback
+		}
+		try {
+
+			const res = await axios.post(`${REACT_APP_BASE_API_URL}/review/add`, payload)
+			notifySuccess(res.data);
+		}
+		catch (error) {
+			console.log(error)
+			notifyError(error.response.data);
+		}
+		setShow(false)
+	}
+
+
 	useEffect(() => {
+
+		if (!localStorage.getItem("userId")) {
+			navigate("/login");
+			return;
+		}
+
 		//check if user is already registered or user is organizer
+		setVirtualTime(localStorage.getItem("virtualTime"))
+		console.log(moment(virtualTime)._d)
+		console.log(moment(startTime)._d)
 		checkAccessParticipantForum();
 	}, []);
 
@@ -120,7 +168,7 @@ const EventHome = () => {
 			<Card>
 				<Container>
 					<Card.Img
-						src="https://www.livenationentertainment.com/wp-content/uploads/2021/07/Live_Nation_Entertainment_Return_to_LIVE.jpg"
+						src={"https://www.livenationentertainment.com/wp-content/uploads/2021/07/Live_Nation_Entertainment_Return_to_LIVE.jpg"}
 						alt="Card image"
 						style={{ height: "400px", objectFit: "cover" }}
 					/>
@@ -154,7 +202,7 @@ const EventHome = () => {
 							<b>Fee: </b> $ {fee}
 						</h4>
 						<h4>
-							<b>Organizer: </b> <Link to={`/reviewAndReputation`} state={{ payload: userInfo }}>{userInfo?.screenName}</Link>
+							<b>Organizer: </b> <Link to={`/reviewAndReputation`} state={{ payload: { ...userInfo, type: "Organizer" } }}>{userInfo?.screenName}</Link>
 						</h4>
 						<h4>
 							<b>Admission Policy: </b>
@@ -196,7 +244,12 @@ const EventHome = () => {
 					/>
 					<ReviewModal
 						show={reviewModalShow}
-						handleClose={() => handleAddReviewClose} />
+						rating={rating}
+						handleClose={() => handleAddReviewClose}
+						handleTextFeedback={() => handleTextFeedback}
+						handleRating={() => handleRating}
+						handleReviewSubmit={() => handleReviewSubmit}
+					/>
 				</div>
 			</Container>
 
@@ -216,15 +269,21 @@ const EventHome = () => {
 							Sign up Forum
 						</Nav.Link>
 					</Nav.Item>
-					{participantForumAccess ? (
-						<Nav.Item style={{ width: "50%" }}>
-							<Nav.Link eventKey="2" title="Item">
-								Participant Forum
-							</Nav.Link>
-						</Nav.Item>
-					) : (
-						""
-					)}
+
+					{
+
+
+						participantForumAccess ? (
+							<Nav.Item style={{ width: "50%" }}>
+								<Nav.Link eventKey="2" title="Item">
+									Participant Forum
+								</Nav.Link>
+							</Nav.Item>
+						) : (
+							""
+						)
+
+					}
 				</Nav>
 			</Container>
 

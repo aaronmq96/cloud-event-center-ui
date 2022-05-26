@@ -126,52 +126,42 @@ const Login = () => {
         checkIfUserLoggedIn()
 
     }, [])
-    //     onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-
-    //             // const uid = user.uid;
-    //             navigate("/updateUser")
-
-    //         } else {
-    //             // User is signed out
-    //             // ...
-
-    //         }
-    //     });
-
-    // }, [])
 
     return (
-        <div className='signup-wrapper' >
-            <div className='signup-sub-wrapper'>
-                <h2 style={{ textAlign: "center" }}>Login</h2>
-                <br />
+        <div className="wrap-home">
+            <div className="overlay">
+                <div className='signup-wrapper' >
+                    <div className='signup-sub-wrapper'>
+                        <h2 style={{ textAlign: "center" }}>Login</h2>
+                        <br />
 
-                <Form>
-                    <Form.Group controlId="formGridEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control className="s-input-main" type="email" placeholder="Enter email" ref={email} />
-                    </Form.Group>
+                        <Form>
+                            <Form.Group controlId="formGridEmail">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control className="s-input-main" type="email" placeholder="Enter email" ref={email} />
+                            </Form.Group>
 
-                    <Form.Group controlId="formGridPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control className="s-input-main" type="password" placeholder="Password" ref={password} />
-                    </Form.Group>
+                            <Form.Group controlId="formGridPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control className="s-input-main" type="password" placeholder="Password" ref={password} />
+                            </Form.Group>
 
-                    <div className='buttons-wrapper'>
-                        <Link to="/updateUser"><Button variant="primary" type="submit" onClick={handleSignIn} style={{ width: '100%' }}>
-                            Sign In
-                        </Button></Link>
-                        <hr />
+                            <div className='buttons-wrapper'>
+                                <Link to="/updateUser"><Button variant="primary" type="submit" onClick={handleSignIn} style={{ width: '100%' }}>
+                                    Sign In
+                                </Button></Link>
+                                <hr />
 
-                    </div>
-                    <div className='google-button-wrapper'>
-                        <Link to="/updateUser" ><GoogleButton onClick={signInWithGoogle} style={{ backgroundColor: "#0d6efd", overflow: "hidden", width: "100%" }} /></Link>
-                    </div>
-                </Form >
-                <p style={{ textAlign: "center", marginTop: "10px" }}>Dont have an account? <span><a href="/signup"> Create new acccount</a></span></p>
-                <p style={{ color: "red" }}>{message}</p>
-            </div >
+                            </div>
+                            <div className='google-button-wrapper'>
+                                <Link to="/updateUser" ><GoogleButton onClick={signInWithGoogle} style={{ backgroundColor: "#0d6efd", overflow: "hidden", width: "100%" }} /></Link>
+                            </div>
+                        </Form >
+                        <p style={{ textAlign: "center", marginTop: "10px" }}>Dont have an account? <span><a href="/signup"> Create new acccount</a></span></p>
+                        <p style={{ color: "red" }}>{message}</p>
+                    </div >
+                </div >
+            </div>
         </div >
 
     )

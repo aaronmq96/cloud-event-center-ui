@@ -4,6 +4,8 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { REACT_APP_BASE_API_URL } from "../../config";
 const UpdateUserInfo = () => {
+	const navigate = useNavigate();
+
 	const [accountType, setAccountType] = useState();
 	const [fullName, setFullName] = useState("");
 	const [screenName, setScreenName] = useState();
@@ -15,7 +17,6 @@ const UpdateUserInfo = () => {
 	const [state, setState] = useState();
 	const [zipcode, setZipcode] = useState();
 
-	const navigate = useNavigate();
 	const handleUpdate = async (e) => {
 		e.preventDefault();
 
@@ -52,6 +53,14 @@ const UpdateUserInfo = () => {
 		console.log(e.target.value);
 		setAccountType(e.target.value);
 	};
+
+
+	useEffect(() => {
+		if (!localStorage.getItem("userId")) {
+			navigate("/login");
+			return;
+		}
+	}, [])
 
 	return (
 		<div className="register-wrapper">
